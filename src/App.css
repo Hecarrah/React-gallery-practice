@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.Header{
+  display: flex;
+  background-color: rgb(36, 36, 36);
+  font-size: 24px;
+  color: whitesmoke;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16px;
+}
+
+.Thumbnail{
+  display: flex;
+  gap: 1rem;
+  width: 128px;
+  height: 128px;
+  border: 3px solid;
+  justify-content: center;
+  vertical-align: middle;
+  margin:3px;
+}
