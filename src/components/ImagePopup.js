@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ImageArray from "../ImageArray"
 
 export function ImagePopup(props) {
+  const { args } = props;
   const id = props.img_id;
   const [commentValue, setCommentValue] = useState(ImageArray[id].comment)
 
@@ -16,10 +17,21 @@ export function ImagePopup(props) {
       console.log(`Succesfully changed comment of ID: ${id} to ${commentValue}`)
     }
   }
+
+  useEffect(() => {
+    const closeKeyListener = (e) => {
+      if (e.key == "Escape") { //Listen for escape to close image.
+        props.handleClosePopup()
+      }
+    }
+    window.addEventListener('keydown', closeKeyListener)
+    return () => window.removeEventListener('keydown', closeKeyListener)
+  })
+
   return (
     <div className="ImagePopupBackground" >
       <h1 style={{ color: "whitesmoke" }}>{ImageArray[id].image_src}</h1>
-      <h3 style={{ color: "whitesmoke" }}>Click the image again to close</h3>
+      <h3 style={{ color: "whitesmoke" }}>Click the image, or press ESC to close</h3>
       <img className="ImagePopupImage" src={ImageArray[id].image_src} alt="" onClick={props.handleClosePopup}></img>
       <br></br>
       <textarea type="textarea" value={commentValue} onChange={handleCommentChange} />
