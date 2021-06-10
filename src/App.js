@@ -1,16 +1,16 @@
 import './App.css';
 import Grid from '@material-ui/core/Grid';
 import { Header } from './components/Header';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ImageArray from './ImageArray'
 import ImagePopup from './components/ImagePopup'
 import React from 'react';
 import callCatApiToGetNewCatImageUrl from './components/AddCatImage';
 
-let currImage = 0;
+let currImage = 1;
 
 function create_images(functionOnClick) {
-  return (
+  return ( //array_id and key are unique to conform to React.js not wanting to use key as value later.
     ImageArray.map((img) => <Thumbnail image_src={img.image_src} key={img.id} array_id={img.id} clickFunc={functionOnClick} />
     )
   )
@@ -38,21 +38,17 @@ function Placeholder(props) {
 }
 
 function App() {
-  const [refresh, refreshPageWithState] = useState(0)
+  const [, refreshPageWithState] = useState(0)
   const [popupOpen, toggleOpenPopup] = useState(false)
 
   function popupImage() {
     toggleOpenPopup(!popupOpen)
-   // console.log(popupOpen)
   }
 
-  function handleUpdate() {
-    callCatApiToGetNewCatImageUrl(refreshPageWithState())
-
-    create_images()
+  async function handleUpdate() {
+    await callCatApiToGetNewCatImageUrl()
     refreshPageWithState({})
   }
-  useEffect(() => {handleUpdate()},[])
   return (
     <div className="App">
       <Header />
