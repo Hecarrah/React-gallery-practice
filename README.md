@@ -1,3 +1,11 @@
+This project is mainly for revising React.js. 
+
+The app should run with just `npm start` ran in the root directory, defaulting running in `localhost:3000`. 
+
+For actual functionality. Clicking on the "Click to fetch..." button or the button above the images, the app will fetch a new, random cat image from [TheCatApi](https://docs.thecatapi.com/).
+
+Clicking on any image will pop-up the image for better viewing enjoyment of the cat. A comment for the picture can be written into the text-box below and saved using the corresponding button below it. The comments persist for the session, but disappear (along with your fetched random cats) upon reloading the page.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
