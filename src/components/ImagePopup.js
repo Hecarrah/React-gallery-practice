@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import ImageArray from "../ImageArray"
 
 export function ImagePopup(props) {
-  const { args } = props;
   const id = props.img_id;
   const [commentValue, setCommentValue] = useState(ImageArray[id].comment)
 
