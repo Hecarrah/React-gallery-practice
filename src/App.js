@@ -23,7 +23,7 @@ function Thumbnail(props) {
   }
   return (
     <div xs={2} className="Thumbnail">
-      <img className="Image" src={props.image_src} alt="no" onClick={handleClick}></img>
+      <img className="Image" src={props.image_src} alt="Fetching from TheCatApi" onClick={handleClick}></img>
     </div>
   )
 }
@@ -31,7 +31,7 @@ function Thumbnail(props) {
 function Placeholder(props) {
   return (
     <div xs={2} className="Thumbnail">
-      <img src={props.image_src} alt="Click to add"
+      <img src={props.image_src} alt="Click to fetch a new cat from TheCatApi"
         onClick={props.func}></img>
     </div>
   )
@@ -51,12 +51,14 @@ function App() {
   }
   return (
     <div className="App">
-      <Header />
-      <button onClick={handleUpdate}>test</button>
-      <Grid container>
-        {create_images(popupImage)}
-        <Placeholder image_src="" func={handleUpdate} />
-      </Grid>
+      <div style={{ filter: popupOpen ? "blur(3px)" : null }}>
+        <Header />
+        <button className="Button" onClick={handleUpdate}>Add some cats if clicking on the picture fails</button>
+        <Grid container>
+          {create_images(popupImage)}
+          <Placeholder image_src="" func={handleUpdate} />
+        </Grid>
+      </div>
       {popupOpen && <ImagePopup img_id={currImage} handleClosePopup={popupImage} />}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import ImageArray from "../ImageArray"
 
 export function ImagePopup(props) {
@@ -12,15 +12,17 @@ export function ImagePopup(props) {
   }
   const handleConfirmButton = (e) => {
     ImageArray[id].comment = commentValue
-    if(ImageArray[id].comment === commentValue){ //Make sure everything is alright and the value changed
+    if (ImageArray[id].comment === commentValue) { //Make sure everything is alright and the value changed
       console.log(`Succesfully changed comment of ID: ${id} to ${commentValue}`)
     }
   }
   return (
     <div className="ImagePopupBackground" >
-      <img className ="ImagePopupImage" src={ImageArray[id].image_src} alt="no" onClick={props.handleClosePopup}></img>
+      <h1 style={{ color: "whitesmoke" }}>{ImageArray[id].image_src}</h1>
+      <h3 style={{ color: "whitesmoke" }}>Click the image again to close</h3>
+      <img className="ImagePopupImage" src={ImageArray[id].image_src} alt="" onClick={props.handleClosePopup}></img>
       <br></br>
-      <textarea type="textarea" value={commentValue} onChange={handleCommentChange} size="30"/>
+      <textarea type="textarea" value={commentValue} onChange={handleCommentChange} />
       <br></br>
       <button onClick={handleConfirmButton}>Save Changes to the comment</button>
     </div>

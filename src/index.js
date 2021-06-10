@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
-import './index.css';
 import App from './App';
 import About from './About';
+import './index.css';
+
 import reportWebVitals from './reportWebVitals';
   const router = (
    <Router>
