@@ -1,32 +1,32 @@
 import './App.css';
 import Grid from '@material-ui/core/Grid';
 import { Header } from './components/Header';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ImageArray from './ImageArray'
 import ImagePopup from './components/ImagePopup'
 import React from 'react';
+import callCatApiToGetNewCatImageUrl from './components/AddCatImage';
 
-let currImage = "";
+let currImage = 0;
 
 function create_images(functionOnClick) {
   return (
-    ImageArray.map((img) => <Thumbnail image_src={img.image_src} key={img.id} clickFunc={functionOnClick} />
+    ImageArray.map((img) => <Thumbnail image_src={img.image_src} key={img.id} array_id={img.id} clickFunc={functionOnClick} />
     )
   )
 }
 
 function Thumbnail(props) {
   function handleClick() {
-    currImage = props.image_src
+    currImage = props.array_id;
     props.clickFunc()
   }
   return (
     <div xs={2} className="Thumbnail">
-      <img src={props.image_src} alt="no" onClick={handleClick}></img>
+      <img className="Image" src={props.image_src} alt="no" onClick={handleClick}></img>
     </div>
   )
 }
-
 
 function Placeholder(props) {
   return (
@@ -37,11 +37,9 @@ function Placeholder(props) {
   )
 }
 
-
 function App() {
-  const [, setState] = useState(0)
+  const [refresh, refreshPageWithState] = useState(0)
   const [popupOpen, toggleOpenPopup] = useState(false)
-
 
   function popupImage() {
     toggleOpenPopup(!popupOpen)
@@ -49,17 +47,12 @@ function App() {
   }
 
   function handleUpdate() {
-    ImageArray.push({
-      id: ImageArray.length,
-      image_src: "https://images.unsplash.com/photo-1561948955-570b270e7c36?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=518&q=80",
-    })
+    callCatApiToGetNewCatImageUrl(refreshPageWithState())
+
     create_images()
-    setState(() => {
-      return {
-        test: true
-      }
-    })
+    refreshPageWithState({})
   }
+  useEffect(() => {handleUpdate()},[])
   return (
     <div className="App">
       <Header />
@@ -68,7 +61,7 @@ function App() {
         {create_images(popupImage)}
         <Placeholder image_src="" func={handleUpdate} />
       </Grid>
-      {popupOpen && <ImagePopup img_src={currImage} handleClosePopup={popupImage} />}
+      {popupOpen && <ImagePopup img_id={currImage} handleClosePopup={popupImage} />}
     </div>
   );
 }
